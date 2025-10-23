@@ -3,7 +3,11 @@ from datetime import datetime
 import json
 from utils.get_user_agent import get_random_user_agent
 from models.stock_data_model import StockDataModel
+from stocks import SYMBOLS
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
+
+MAX_THREADS = 15
 
 class Scraper:
     def __init__(self):
@@ -50,6 +54,25 @@ class Scraper:
         except Exception as e:
             print(f"Unexpected error: {e}")
             return None
+        
+
+    def fetch_multiple_symbols(self, start_date, end_date = datetime.now().strftime("%d-%m-%Y")) -> json:
+        symbols = SYMBOLS
+        symbol_list = [symbol_name["symbol"] for symbol_name in symbols]
+
+        results = {}
+
+        with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
+            futures = {executor.submit(self.fetch_data, sym, start_date, end_date): sym for sym in symbol_list}
+            for fut in as_completed(futures):
+                sym = futures[fut]
+                try:
+                    results[sym] = fut.result()
+                except Exception as e:
+                    print(f"Error fecthing {sym}: {e}")
+                    results[sym] = None
+
+        return results
 
     def process_data(self, data) -> dict:
         if not data:

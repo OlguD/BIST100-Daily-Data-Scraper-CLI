@@ -1,3 +1,0 @@
-StockName,Date,DollarBasedPrice,IndexBasedPrice,DollarBasedMinPrice,DollarBasedMaxPrice,DollarBasedOpenPrice,Open,Close,High,Low,Volume
-KOZAL,21-10-2025,0.5805,0.0023,0.5748,0.6034,0.5905,24.778,24.36,25.32,24.12,2.3864233e+09
-KOZAL,22-10-2025,0.5661,0.0023,0.5651,0.5847,0.5734,24.067,23.76,24.54,23.72,1.3923153e+09
