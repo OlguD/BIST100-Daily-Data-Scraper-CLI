@@ -37,6 +37,15 @@ Usage examples
   - python src/main.py --stock-name KOZAL --start 21-10-2025 --export-to-csv ./out.csv
   - python src/main.py --stock-name KOZAL --start 21-10-2025 --export-to-excel ./out.xlsx
 
+  Multiple fetch
+  - Fetch data for all BIST100 symbols using the `--multiple` flag (no `--stock-name` required). Example writing to an Excel file:
+
+    python3 src/main.py --start 21-10-2025 --multiple --export-to-excel ./data.xlsx
+
+  Notes:
+  - When exporting to Excel the file will be saved with a `.xlsx` extension (the CLI will add `.xlsx` automatically if you omit it).
+  - Multiple mode fetches every symbol in the `SYMBOLS` list (see `src/stocks.py`) and includes a `symbol` column in the exported rows for clarity.
+
 Notes & tips
 - Command-line arguments are defined in `src/utils/parser.py`.
 - Request headers and user-agent are configured in `src/scraper/scraper.py`.
